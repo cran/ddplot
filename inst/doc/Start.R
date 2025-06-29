@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -21,7 +21,7 @@ scatterPlot(
 )
 
 
-## ---- fig.align='center'------------------------------------------------------
+## ----fig.align='center'-------------------------------------------------------
 scatterPlot(
   data = mpg,
   x = "displ",
@@ -59,7 +59,65 @@ animatedHistogram(
   bgcol = "white"
   )
 
-## ----fig.align='center', message=FALSE, warning=FALSE-------------------------
+## -----------------------------------------------------------------------------
+flower(
+  petalCount = 7,
+  petalColor = "plum",
+  rotationSpeed = 0
+)
+
+## -----------------------------------------------------------------------------
+flower(
+  petalCount = 15,
+  petalWidth = 20,
+  petalColor = "plum",
+  rotationSpeed = 1.5
+)
+
+## -----------------------------------------------------------------------------
+heart_fill(fill_level = 0.8, titleText = NULL, renderFillLabel = FALSE)
+
+## -----------------------------------------------------------------------------
+glass_fill(fill_level = 0.8, titleText = "Glass of water", renderFillLabel = TRUE)
+
+## -----------------------------------------------------------------------------
+plant_growth(0.4)
+
+## -----------------------------------------------------------------------------
+plant_growth(1)
+
+## -----------------------------------------------------------------------------
+flame(
+  intensity = 20, 
+  flameGradientColors = c("yellow", "orange", "darkred"),
+  flameOutline = "darkred",
+  bgcol = "#fefefe"
+)
+
+## -----------------------------------------------------------------------------
+flame(
+  intensity = 80, 
+  flameGradientColors = c("green", "darkgreen", "darkblue"),
+  flameOutline = "#fefefe",
+  bgcol = "black"
+)
+
+## -----------------------------------------------------------------------------
+# The data is a toy example and does not reflect the reality
+vote_results_germany <- data.frame(
+    political_party = c("SDP", "CDU", "Linke", "Grüne"),
+    number_of_seats = c(200, 40, 30, 20)
+)
+parliament_chart(
+  data = vote_results_germany,
+  categorical_column = "political_party",
+  numerical_column = "number_of_seats",
+  title = "German Bundestag",
+  seatSize = 10,
+  bgcol = "#fefefe"
+)
+
+## ----message=FALSE, warning=FALSE---------------------------------------------
 library(dplyr)
 
 mpg %>% group_by(manufacturer) %>%
@@ -341,17 +399,12 @@ stackedAreaChart(
   stroke = "black"
   )
 
-## ---- eval = FALSE------------------------------------------------------------
-#  <<<<<<< HEAD
+## ----eval = FALSE-------------------------------------------------------------
 #  gapminder_subset <- gapminder::gapminder %>%
 #    select(country, year, pop) %>%
 #    filter(country %in% c("Japan", "Mexico", "Germany", "Brazil", "Philippines", "Vietnam")) %>%
 #    mutate(pop = pop/1e6)
-#  =======
-#  gapminder_subset <- gapminder::gapminder %>% select(country, year, pop) %>%
-#      filter(country %in% c("Japan", "Mexico", "Germany", "Brazil", "Mexico", "Philippines", "Vietnam")) %>%
-#      mutate(pop = pop/1e6)
-#  >>>>>>> 6bab1415a132b17bda7192e7e2e63758614d5161
+#  
 #  
 #  gapminder_subset %>%
 #    slice_sample(n = 10)
@@ -368,7 +421,7 @@ stackedAreaChart(
 #  #> 9  1952  69.14595     Germany
 #  #> 10 1957  91.56301       Japan
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 gapminder_subset <- data.frame(
   year = c(
     1952L,1957L,1962L,1967L,1972L,1977L,
@@ -457,4 +510,51 @@ gapminder_subset %>%
       xOffset = 0.2
     )
   )
+
+## ----eval=FALSE---------------------------------------------------------------
+#  library(shiny)
+#  library(ddplot)
+#  library(r2d3)
+#  
+#  ui <- fluidPage(
+#  
+#    shiny::h2("Example ddplot application"),
+#  
+#    shiny::selectInput(
+#      inputId = "colors",
+#      label = NULL,
+#      choices = colors(),
+#      selected = "springgreen3"
+#    ),
+#  
+#    shiny::br(),
+#  
+#    shiny::sliderInput(
+#      inputId = "slider",
+#      label = NULL,
+#      min = 1,
+#      max = 10,
+#      value = 3
+#    ),
+#    shiny::br(),
+#    mainPanel(
+#      uiOutput("ddplot_ui")
+#    )
+#  )
+#  
+#  server <- function(input, output) {
+#    output$ddplot_ui <- renderUI({
+#      widget <- ddplot::scatterPlot(
+#        data = iris,
+#        x = "Sepal.Length",
+#        y = "Sepal.Width",
+#        size = input$slider,
+#        col = input$colors
+#      )
+#      htmlwidgets::saveWidget(widget, "www/temp_ddplot.html", selfcontained = TRUE)
+#      tags$iframe(src = "temp_ddplot.html", width = "100%", height = "400px", frameborder = 0)
+#    })
+#  }
+#  
+#  shinyApp(ui = ui, server = server)
 
