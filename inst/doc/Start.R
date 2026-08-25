@@ -10,7 +10,7 @@ library(ddplot)
 ## ----fig.align='center', message=FALSE, warning=FALSE-------------------------
 library(ggplot2) # needed for the mpg data frame
 
-scatterPlot(
+scatter_plot(
   data = mpg,
   x = "hwy",
   y = "cty",
@@ -22,7 +22,7 @@ scatterPlot(
 
 
 ## ----fig.align='center'-------------------------------------------------------
-scatterPlot(
+scatter_plot(
   data = mpg,
   x = "displ",
   y = "cty",
@@ -50,7 +50,7 @@ histogram(
 )
 
 ## -----------------------------------------------------------------------------
-animatedHistogram(
+animated_histogram(
   x = mpg$hwy,
   duration = 2000,
   delay = 100,
@@ -85,6 +85,73 @@ plant_growth(0.4)
 
 ## -----------------------------------------------------------------------------
 plant_growth(1)
+
+## -----------------------------------------------------------------------------
+workload_grid <- data.frame(
+  hour = c("09:00","12:00","15:00","18:00",
+           "09:00","12:00","15:00","18:00",
+           "09:00","12:00","15:00","18:00"),
+  team = c("North","North","North","North",
+           "South","South","South","South",
+           "East","East","East","East"),
+  load = c(0.35,0.72,0.56,0.91,
+           0.41,0.67,0.83,0.58,
+           0.28,0.49,0.77,0.63),
+  stringsAsFactors = FALSE
+)
+
+pulse_grid(
+  data = workload_grid,
+  x = "hour",
+  y = "team",
+  value = "load",
+  title = "Support Team Load Through the Day",
+  low = "#D9F0FF",
+  high = "red",
+  bgcol = "#0B132B",
+  stroke = "#1C2541",
+  strokeWidth = 1.5,
+  pulseStrength = 0.22
+)
+
+## -----------------------------------------------------------------------------
+reliability_grid <- data.frame(
+  day = c(
+    "Mon","Tue","Wed","Thu","Fri",
+    "Mon","Tue","Wed","Thu","Fri",
+    "Mon","Tue","Wed","Thu","Fri",
+    "Mon","Tue","Wed","Thu","Fri"
+  ),
+  service = c(
+    "API","API","API","API","API",
+    "Billing","Billing","Billing","Billing","Billing",
+    "Search","Search","Search","Search","Search",
+    "Auth","Auth","Auth","Auth","Auth"
+  ),
+  incident_score = c(
+    0.62, 0.44, 0.57, 0.78, 0.69,
+    0.31, 0.36, 0.40, 0.51, 0.47,
+    0.73, 0.81, 0.76, 0.88, 0.67,
+    0.22, 0.27, 0.25, 0.34, 0.29
+  ),
+  stringsAsFactors = FALSE
+)
+
+pulse_grid(
+  data = reliability_grid,
+  x = "day",
+  y = "service",
+  value = "incident_score",
+  title = "Service Reliability Pressure Map",
+  low = "lightgreen",
+  high = "#B00020",
+  bgcol = "#081C15",
+  labelColor = "#F1FAEE",
+  titleColor = "#F1FAEE",
+  stroke = "#2D6A4F",
+  showValues = TRUE,
+  digits = 2
+)
 
 ## -----------------------------------------------------------------------------
 flame(
@@ -122,7 +189,7 @@ library(dplyr)
 
 mpg %>% group_by(manufacturer) %>%
   summarise(mean_cty = mean(cty)) %>%
-  barChart(
+  bar_chart(
     x = "manufacturer",
     y = "mean_cty",
     xFontSize = 10,
@@ -136,7 +203,7 @@ mpg %>% group_by(manufacturer) %>%
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 mpg %>% group_by(manufacturer) %>%
   summarise(mean_cty = mean(cty)) %>%
-  barChart(
+  bar_chart(
     x = "manufacturer",
     y = "mean_cty",
     sort = "ascending",
@@ -152,7 +219,7 @@ mpg %>% group_by(manufacturer) %>%
 ## -----------------------------------------------------------------------------
 mpg %>% group_by(manufacturer) %>%
   summarise(mean_cty = mean(cty)) %>%
-  horzBarChart(
+  horz_bar_chart(
     label = "manufacturer",
     value = "mean_cty",
     sort = "ascending",
@@ -169,7 +236,7 @@ mpg %>% group_by(manufacturer) %>%
 ## -----------------------------------------------------------------------------
 mpg %>% group_by(manufacturer) %>%
   summarise(mean_cty = mean(cty)) %>%
-  horzBarChart(
+  horz_bar_chart(
     label = "manufacturer",
     value = "mean_cty",
     sort = "descending",
@@ -189,7 +256,7 @@ mpg %>% group_by(manufacturer) %>%
 ## -----------------------------------------------------------------------------
 mpg %>% group_by(drv) %>%
   summarise(median_cty = median(cty)) %>%
-  lollipopChart(
+  lollipop_chart(
     x = "drv",
     y = "median_cty",
     sort = "ascending",
@@ -202,7 +269,7 @@ mpg %>% group_by(drv) %>%
 ## -----------------------------------------------------------------------------
 
 mpg %>% filter(year == 2008) %>%
-lollipopChart(
+lollipop_chart(
     x = "manufacturer",
     y = "hwy",
     circleFill = 'red',
@@ -215,14 +282,14 @@ lollipopChart(
 ## -----------------------------------------------------------------------------
 mpg %>% group_by(manufacturer) %>%
   summarise(median_cty = median(cty)) %>%
-  horzLollipop(
+  horz_lollipop(
     label = "manufacturer",
     value = "median_cty",
     sort = "descending")
 
 ## -----------------------------------------------------------------------------
 mpg %>% filter(year == 2008) %>%
-horzLollipop(
+horz_lollipop(
     label = "manufacturer",
     value = "hwy",
     circleFill = 'red',
@@ -236,14 +303,14 @@ horzLollipop(
 mini_starwars <- starwars %>% tidyr::drop_na(mass) %>%
   sample_n(size = 5) # getting 5 random values
 
-pieChart(
+pie_chart(
   data = mini_starwars,
   value = "mass",
   label = "name"
 )
 
 ## -----------------------------------------------------------------------------
-pieChart(
+pie_chart(
   data = mini_starwars,
   value = "mass",
   label = "name",
@@ -254,7 +321,7 @@ pieChart(
 )
 
 ## -----------------------------------------------------------------------------
-pieChart(
+pie_chart(
   data = mini_starwars,
   value = "mass",
   label = "name",
@@ -273,14 +340,14 @@ airpassengers <- data.frame(
 )
 
 # 2. plotting the line chart
-lineChart(
+line_chart(
   data = airpassengers,
   x = "date",
   y = "passengers"
 )
 
 ## -----------------------------------------------------------------------------
-lineChart(
+line_chart(
   data = airpassengers,
   x = "date",
   y = "passengers",
@@ -288,7 +355,7 @@ lineChart(
 )
 
 ## -----------------------------------------------------------------------------
-lineChart(
+line_chart(
   data = airpassengers,
   x = "date",
   y = "passengers",
@@ -296,7 +363,7 @@ lineChart(
 )
 
 ## -----------------------------------------------------------------------------
-lineChart(
+line_chart(
   data = airpassengers,
   x = "date",
   y = "passengers",
@@ -304,7 +371,7 @@ lineChart(
 )
 
 ## -----------------------------------------------------------------------------
-animLineChart(
+anim_line_chart(
   data = airpassengers,
   x = "date",
   y = "passengers",
@@ -320,7 +387,7 @@ airpassengers <- data.frame(
 )
 
 # 2. plotting the area chart
-areaChart(
+area_chart(
   data = airpassengers,
   x = "date",
   y = "passengers",
@@ -335,7 +402,7 @@ airpassengers <- data.frame(
   date= zoo::as.Date(time(AirPassengers))
 )
 
-areaBand(
+area_band(
   data = airpassengers,
   x = "date",
   yLower = "passengers_lower",
@@ -368,14 +435,14 @@ data <- data.frame(
 data
 
 ## -----------------------------------------------------------------------------
-stackedAreaChart(
+stacked_area_chart(
   data = data,
   x = "date",
   legendTextSize = 14
   )
 
 ## -----------------------------------------------------------------------------
-stackedAreaChart(
+stacked_area_chart(
   data = data,
   x = "date",
   legendTextSize = 14,
@@ -387,7 +454,7 @@ stackedAreaChart(
   )
 
 ## -----------------------------------------------------------------------------
-stackedAreaChart(
+stacked_area_chart(
   data = data,
   x = "date",
   legendTextSize = 14,
@@ -400,26 +467,26 @@ stackedAreaChart(
   )
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  gapminder_subset <- gapminder::gapminder %>%
-#    select(country, year, pop) %>%
-#    filter(country %in% c("Japan", "Mexico", "Germany", "Brazil", "Philippines", "Vietnam")) %>%
-#    mutate(pop = pop/1e6)
-#  
-#  
-#  gapminder_subset %>%
-#    slice_sample(n = 10)
-#  
-#  #>    year       pop     country
-#  #> 1  2007  91.07729 Philippines
-#  #> 2  1997  76.04900     Vietnam
-#  #> 3  1972 107.18827       Japan
-#  #> 4  1967  39.46391     Vietnam
-#  #> 5  1952  30.14432      Mexico
-#  #> 6  1987 142.93808      Brazil
-#  #> 7  1997 168.54672      Brazil
-#  #> 8  1962  41.12148      Mexico
-#  #> 9  1952  69.14595     Germany
-#  #> 10 1957  91.56301       Japan
+# gapminder_subset <- gapminder::gapminder %>%
+#   select(country, year, pop) %>%
+#   filter(country %in% c("Japan", "Mexico", "Germany", "Brazil", "Philippines", "Vietnam")) %>%
+#   mutate(pop = pop/1e6)
+# 
+# 
+# gapminder_subset %>%
+#   slice_sample(n = 10)
+# 
+# #>    year       pop     country
+# #> 1  2007  91.07729 Philippines
+# #> 2  1997  76.04900     Vietnam
+# #> 3  1972 107.18827       Japan
+# #> 4  1967  39.46391     Vietnam
+# #> 5  1952  30.14432      Mexico
+# #> 6  1987 142.93808      Brazil
+# #> 7  1997 168.54672      Brazil
+# #> 8  1962  41.12148      Mexico
+# #> 9  1952  69.14595     Germany
+# #> 10 1957  91.56301       Japan
 
 ## ----echo = FALSE-------------------------------------------------------------
 gapminder_subset <- data.frame(
@@ -472,7 +539,7 @@ gapminder_subset <- data.frame(
 
 ## -----------------------------------------------------------------------------
 gapminder_subset %>%
-  barChartRace(
+  bar_chart_race(
     x = "pop",
     y = "country",
     time = "year",
@@ -483,7 +550,7 @@ gapminder_subset %>%
 
 ## -----------------------------------------------------------------------------
 gapminder_subset %>%
-  barChartRace(
+  bar_chart_race(
     x = "pop",
     y = "country",
     time = "year",
@@ -496,7 +563,7 @@ gapminder_subset %>%
 
 ## -----------------------------------------------------------------------------
 gapminder_subset %>%
-  barChartRace(
+  bar_chart_race(
     x = "pop",
     y = "country",
     time = "year",
@@ -511,50 +578,243 @@ gapminder_subset %>%
     )
   )
 
+## -----------------------------------------------------------------------------
+liquid_chart(value = 0.55, title = "Memory")
+
+## -----------------------------------------------------------------------------
+liquid_chart(
+  value         = 0.28,
+  label         = "28%",
+  fillColor     = "tomato",
+  circleColor   = "tomato",
+  textColor     = "tomato",
+  waveTextColor = "white",
+  title         = "Errors"
+)
+
+## -----------------------------------------------------------------------------
+liquid_chart(
+  value         = 0.72,
+  label         = "72%",
+  fillColor     = "#27ae60",
+  waveAmplitude = 0.05,
+  waveCount     = 3,
+  waveSpeed     = 1.5,
+  title         = "Battery"
+)
+
+## -----------------------------------------------------------------------------
+pnl <- data.frame(
+  label   = c("Revenue", "COGS", "Gross Profit",
+              "R&D", "S&M", "G&A", "Operating Income"),
+  value   = c(1200, -450, 750, -120, -90, -60, 480),
+  measure = c("relative", "relative", "total",
+              "relative", "relative", "relative", "total")
+)
+
+waterfall_chart(
+  data   = pnl,
+  x      = "label",
+  y      = "value",
+  measure = "measure",
+  title  = "P&L bridge",
+  ytitle = "USD thousands"
+)
+
+## -----------------------------------------------------------------------------
+cashflow <- data.frame(
+  month = c("Jan", "Feb", "Mar", "Apr", "May", "Jun"),
+  delta = c(120, -30, 80, -60, 95, -20)
+)
+
+waterfall_chart(
+  data          = cashflow,
+  x             = "month",
+  y             = "delta",
+  title         = "Monthly cash flow",
+  ytitle        = "USD thousands",
+  positiveColor = "steelblue",
+  negativeColor = "tomato"
+)
+
+## -----------------------------------------------------------------------------
+life_exp <- data.frame(
+  country   = c("Brazil", "China", "Egypt", "India",
+                "Japan", "Mexico", "Nigeria", "Turkey"),
+  year_1952 = c(50.9, 44.0, 41.9, 37.4, 63.0, 50.8, 36.3, 43.6),
+  year_2007 = c(72.4, 72.9, 71.3, 64.7, 82.6, 76.2, 46.9, 71.8)
+)
+
+dumbbell_chart(
+  data     = life_exp,
+  x1       = "year_1952",
+  x2       = "year_2007",
+  y        = "country",
+  x1Label  = "1952",
+  x2Label  = "2007",
+  title    = "Life expectancy: 1952 vs 2007",
+  xtitle   = "Life expectancy (years)",
+  sort     = "ascending"
+)
+
+## ----message=FALSE, warning=FALSE---------------------------------------------
+library(dplyr)
+
+mpg_summary <- mpg |>
+  group_by(class) |>
+  summarise(city = mean(cty), highway = mean(hwy))
+
+dumbbell_chart(
+  data    = mpg_summary,
+  x1      = "city",
+  x2      = "highway",
+  y       = "class",
+  x1Label = "City",
+  x2Label = "Highway",
+  col1    = "steelblue",
+  col2    = "darkorange",
+  title   = "City vs highway fuel economy by class",
+  xtitle  = "Miles per gallon",
+  sort    = "ascending"
+)
+
+## ----fig.align='center', message=FALSE, warning=FALSE-------------------------
+library(ggplot2) # for the mpg dataset
+
+# Single swarm — full distribution of highway fuel economy
+beeswarm_plot(
+  data   = mpg,
+  x      = "hwy",
+  col    = "steelblue",
+  xtitle = "Highway miles per gallon",
+  title  = "Distribution of hwy"
+)
+
+## ----fig.align='center', message=FALSE, warning=FALSE-------------------------
+beeswarm_plot(
+  data   = mpg,
+  x      = "hwy",
+  group  = "class",
+  xtitle = "Highway miles per gallon",
+  title  = "Highway fuel economy by vehicle class", 
+  tooltip = "manufacturer"
+)
+
+## ----fig.align='center'-------------------------------------------------------
+beeswarm_plot(
+  data         = iris,
+  x            = "Sepal.Length",
+  group        = "Species",
+  colorPalette = "Set2",
+  radius       = 5,
+  opacity      = 0.8,
+  xtitle       = "Sepal length (cm)",
+  title        = "Sepal length by species"
+)
+
+## -----------------------------------------------------------------------------
+bullet_chart(
+  value    = 270,
+  target   = 300,
+  ranges   = c(150, 225, 350),
+  title    = "Revenue",
+  subtitle = "USD thousands"
+)
+
+## -----------------------------------------------------------------------------
+bullet_chart(
+  value      = 7.4,
+  target     = 8.0,
+  ranges     = c(4, 7, 10),
+  title      = "Satisfaction",
+  subtitle   = "out of 10",
+  valueColor = "steelblue"
+)
+
+## -----------------------------------------------------------------------------
+bullet_chart(
+  value       = 320,
+  target      = 250,
+  ranges      = c(200, 500, 1000),
+  rangeColors = c("#f0f0f0", "#d9d9d9", "#bdbdbd"),
+  title       = "Response",
+  subtitle    = "ms"
+)
+
+## -----------------------------------------------------------------------------
+gauge_chart(
+  value = 8,
+  title = "Memory"
+)
+
+## -----------------------------------------------------------------------------
+gauge_chart(
+  value = 72,
+  min = 0,
+  max = 100,
+  title = "CPU Load",
+  warningZone  = 60,
+  warningColor = "orange",
+  dangerZone   = 80,
+  dangerColor  = "red"
+)
+
+## -----------------------------------------------------------------------------
+gauge_chart(
+  value = 530,
+  min = 0,
+  max = 1000,
+  title = "Response (ms)",
+  warningZone  = 400,
+  warningColor = "orange",
+  dangerZone   = 700,
+  dangerColor  = "red"
+)
+
 ## ----eval=FALSE---------------------------------------------------------------
-#  library(shiny)
-#  library(ddplot)
-#  library(r2d3)
-#  
-#  ui <- fluidPage(
-#  
-#    shiny::h2("Example ddplot application"),
-#  
-#    shiny::selectInput(
-#      inputId = "colors",
-#      label = NULL,
-#      choices = colors(),
-#      selected = "springgreen3"
-#    ),
-#  
-#    shiny::br(),
-#  
-#    shiny::sliderInput(
-#      inputId = "slider",
-#      label = NULL,
-#      min = 1,
-#      max = 10,
-#      value = 3
-#    ),
-#    shiny::br(),
-#    mainPanel(
-#      uiOutput("ddplot_ui")
-#    )
-#  )
-#  
-#  server <- function(input, output) {
-#    output$ddplot_ui <- renderUI({
-#      widget <- ddplot::scatterPlot(
-#        data = iris,
-#        x = "Sepal.Length",
-#        y = "Sepal.Width",
-#        size = input$slider,
-#        col = input$colors
-#      )
-#      htmlwidgets::saveWidget(widget, "www/temp_ddplot.html", selfcontained = TRUE)
-#      tags$iframe(src = "temp_ddplot.html", width = "100%", height = "400px", frameborder = 0)
-#    })
-#  }
-#  
-#  shinyApp(ui = ui, server = server)
+# library(shiny)
+# library(ddplot)
+# library(r2d3)
+# 
+# ui <- fluidPage(
+# 
+#   shiny::h2("Example ddplot application"),
+# 
+#   shiny::selectInput(
+#     inputId = "colors",
+#     label = NULL,
+#     choices = colors(),
+#     selected = "springgreen3"
+#   ),
+# 
+#   shiny::br(),
+# 
+#   shiny::sliderInput(
+#     inputId = "slider",
+#     label = NULL,
+#     min = 1,
+#     max = 10,
+#     value = 3
+#   ),
+#   shiny::br(),
+#   mainPanel(
+#     uiOutput("ddplot_ui")
+#   )
+# )
+# 
+# server <- function(input, output) {
+#   output$ddplot_ui <- renderUI({
+#     widget <- ddplot::scatter_plot(
+#       data = iris,
+#       x = "Sepal.Length",
+#       y = "Sepal.Width",
+#       size = input$slider,
+#       col = input$colors
+#     )
+#     htmlwidgets::saveWidget(widget, "www/temp_ddplot.html", selfcontained = TRUE)
+#     tags$iframe(src = "temp_ddplot.html", width = "100%", height = "400px", frameborder = 0)
+#   })
+# }
+# 
+# shinyApp(ui = ui, server = server)
 

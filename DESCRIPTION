@@ -1,7 +1,7 @@
 Package: ddplot
 Type: Package
 Title: Create D3 Based SVG Graphics
-Version: 0.0.2
+Version: 0.1.0
 Authors@R: c(
     person("Mohamed El Fodil", "Ihaddaden", email = "ihaddaden.fodeil@gmail.com", role = c("aut", "cre")),
     person("June", "Choe", email = "jchoe001@gmail.com", role = c("ctb", "cph")),
@@ -17,15 +17,15 @@ License: GPL (>= 3)
 Encoding: UTF-8
 URL: https://github.com/feddelegrand7/ddplot
 BugReports: https://github.com/feddelegrand7/ddplot/issues
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Imports: r2d3
 Suggests: knitr, rmarkdown, ggplot2, dplyr, tidyr, zoo, gapminder
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2025-06-29 10:46:29 UTC; mohamedelfodilihaddaden
+Packaged: 2026-08-25 14:05:02 UTC; mohamedelfodilihaddaden
 Author: Mohamed El Fodil Ihaddaden [aut, cre],
   June Choe [ctb, cph],
   Mike Bostock [ctb, cph] (D3.js developer),
   RStudio [ctb, cph] (developers of the r2d3 package)
 Repository: CRAN
-Date/Publication: 2025-06-29 11:00:03 UTC
+Date/Publication: 2026-08-25 15:10:02 UTC
